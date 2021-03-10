@@ -54,12 +54,12 @@ public class detailsnavigationServlet extends HttpServlet {
 					request.setAttribute("month",  listToEdit.getStartDate().getMonthValue());
 					request.setAttribute("date",  listToEdit.getStartDate().getDayOfMonth());
 					request.setAttribute("year", listToEdit.getStartDate().getYear());
-					
+					//the attribute was called allPlayers on the JSP page not allPlayers
 					ListRosterHelper daoForPlayers = new ListRosterHelper();
-					request.setAttribute("allPlayers",  daoForPlayers.showAllPlayers());
+					request.setAttribute("allDetails",  daoForPlayers.showAllPlayers());
 					
 					if(daoForPlayers.showAllPlayers().isEmpty()) {
-						request.setAttribute("allPlayers",  " ");
+						request.setAttribute("allDetails",  " ");
 					}
 					
 					getServletContext().getRequestDispatcher("/edit-team.jsp").forward(request, response);
@@ -67,7 +67,8 @@ public class detailsnavigationServlet extends HttpServlet {
 					getServletContext().getRequestDispatcher("/viewAllDetailsServlet").forward(request, response);
 				} 
 		}else if(act.contentEquals("add")) {
-					getServletContext().getRequestDispatcher("/new-details.jsp").forward(request, response);
+			//need to send them to get the list of players first before moving them to add the list
+					getServletContext().getRequestDispatcher("/addDetailsServlet").forward(request, response);
 				}
 	}
 
